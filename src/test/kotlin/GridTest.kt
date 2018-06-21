@@ -1,7 +1,5 @@
-package test
-
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 class GridTest {
 
@@ -33,10 +31,10 @@ class GridTest {
         grid.setTileAt(1, 2, GridTile.BORDER)
 
         assertEquals(GridTile.EMPTY, grid.getTileAt(0, 0))
-        assertEquals(GridTile.EMPTY, grid.getTileAt(1,1))
         assertEquals(GridTile.EMPTY, grid.getTileAt(2,2))
         assertEquals(GridTile.EMPTY, grid.getTileAt(3,3))
 
+        assertEquals(GridTile.BORDER, grid.getTileAt(1,1))
         assertEquals(GridTile.BORDER, grid.getTileAt(1,2))
         assertEquals(GridTile.BORDER, grid.getTileAt(2,1))
     }

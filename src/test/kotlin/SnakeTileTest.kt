@@ -1,7 +1,5 @@
-package test
-
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 class SnakeTileTest {
 
@@ -11,7 +9,7 @@ class SnakeTileTest {
         val initY = 5
         val initDirection = Direction.UP
 
-        val tile = SnakeTile.createTile(initX, initY, initDirection );
+        val tile = SnakeTile.createTile(initX, initY, initDirection);
 
         assertEquals(initX, tile.x)
         assertEquals(initY, tile.y)
