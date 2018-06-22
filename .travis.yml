@@ -1,1 +1,3 @@
 language: kotlin
+install: true
+script: ./mvnw clean install
