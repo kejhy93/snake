@@ -31,13 +31,13 @@
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/usr/local/maven-3.5.2/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna7045853556607630923.tmp"/>
+    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna8205857791904571631.tmp"/>
     <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="maven.conf" value="/usr/local/maven-3.5.2/conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="4.4.0-112-generic"/>
+    <property name="os.version" value="4.14.12-041412-generic"/>
     <property name="library.jansi.path" value="/usr/local/maven-3.5.2/lib/jansi-native"/>
     <property name="user.home" value="/home/travis"/>
     <property name="user.timezone" value="UTC"/>
