@@ -1,10 +1,31 @@
-import javax.swing.JComponent
-import javax.swing.SwingUtilities
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import ktx.app.KtxApplicationAdapter
 
-fun main(args:Array<String>) {
-    val snake = Snake.createSnake(0,0)
-    val grid = Grid.createGrid(5, 5)
+object MainKt {
+    @JvmStatic fun main(args: Array<String>) {
+        createApplication()
+    }
 
-    var window = GameWindow()
-    SwingUtilities.invokeLater { window::run }
+    private fun createApplication() = LwjglApplication(Runner(), defaultConfiguration)
+
+    private val defaultConfiguration: LwjglApplicationConfiguration
+        get() {
+            val configuration = LwjglApplicationConfiguration()
+            configuration.title = "Test"
+            configuration.width = 800
+            configuration.height = 600
+
+            return configuration
+        }
+}
+
+class Runner : KtxApplicationAdapter {
+    override fun create() {
+        super.create()
+    }
+
+    override fun render() {
+        super.render()
+    }
 }

@@ -1,58 +1,51 @@
-import java.awt.Color
-import java.awt.Graphics
-import javax.swing.JFrame
-import javax.swing.JPanel
+import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import ktx.app.KtxGame
+import ktx.app.KtxInputAdapter
+import ktx.app.KtxScreen
+import ktx.graphics.use
 
-class GameWindow : JFrame() {
-
-    init {
-        createUI("Snake")
+class ExampleScreen : KtxScreen {
+    // Notice no `lateinit var` - ExampleScreen has no create()
+    // method and is constructed after LibGDX is fully initiated
+    // in ExampleGame.create method.
+    val font = BitmapFont()
+    val batch = SpriteBatch().apply {
+        color = Color.WHITE
     }
 
-    private fun createUI(title: String) {
-
-        setTitle(title)
-
-        add(SnakeWindow())
-
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-        setSize(300, 200)
-        pack()
-        setLocationRelativeTo(null)
-        isVisible = true
+    override fun render(delta: Float) {
+        batch.use {
+            font.draw(it, "Hello Kotlin!", 100f, 100f)
+        }
     }
 
-    fun run() {
-
+    override fun dispose() {
+        // Will be automatically disposed of by the game instance.
+        font.dispose()
+        batch.dispose()
     }
 }
 
-class SnakeWindow : JPanel() {
-    var objectsToDraw : MutableList<TileGui> = ArrayList()
-
-    init {
-        createUI()
+/** ApplicationListener implementation. */
+class ExampleGame : KtxGame<Screen>() {
+    override fun create() {
+        // Registering ExampleScreen in the game object: it will be
+        // accessible through ExampleScreen class:
+        addScreen(ExampleScreen())
+        // Changing current screen to the registered instance of the
+        // ExampleScreen class:
+        setScreen<ExampleScreen>()
     }
+}
 
-    private fun createUI() {
-        setSize(300, 200)
-        background = Color.WHITE
+class MyInputListener : KtxInputAdapter {
+    // Implementation of all ApplicationListener methods is optional. Handle the events you plan on supporting.
 
-        var tile = TileGui(0,0,100,100)
-
-        addTile(tile)
-        isVisible = true
-    }
-
-    private fun addTile(tile : TileGui) {
-        objectsToDraw.add(tile)
-        repaint()
-    }
-
-    override fun paintComponents(g: Graphics?) {
-        super.paintComponents(g)
-        for ( tile in objectsToDraw) {
-            tile.draw(g!!)
-        }
+    override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+        // Handle mouse click...
+        return true
     }
 }
