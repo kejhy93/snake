@@ -17,7 +17,10 @@ object MainKt {
         createApplication()
     }
 
-    private fun createApplication() = LwjglApplication(Runner(), defaultConfiguration)
+    private fun createApplication() {
+        var snake = Snake.createSnake(0, 0)
+        LwjglApplication(Runner(snake), defaultConfiguration)
+    }
 
     private val defaultConfiguration: LwjglApplicationConfiguration
         get() {
@@ -30,15 +33,17 @@ object MainKt {
         }
 }
 
-class Runner : KtxApplicationAdapter, KtxInputAdapter {
+class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
 
     lateinit var font : BitmapFont
     lateinit var batch : SpriteBatch
     lateinit var camera : Camera
     lateinit var renderer : ShapeRenderer
 
-    var xPos : Float = 0F
-    var delta : Float = 0F
+    var xPos : Float = 200F
+    var deltaX : Float = 0F
+    var yPos : Float = 200F
+    var deltaY : Float = 0F
 
     override fun create() {
         super.create()
@@ -68,25 +73,49 @@ class Runner : KtxApplicationAdapter, KtxInputAdapter {
             projectionMatrix = camera.combined
             begin(ShapeRenderer.ShapeType.Filled)
             color = Color.WHITE
-            rect(calculateXPos(), 200F, 10F, 10F)
+            renderSnake(this)
             end()
         }
         super.render()
     }
 
+    private fun renderSnake(renderer : ShapeRenderer) {
+        renderer.rect(calculateXPos(), calculateYPos(), 10F, 10F)
+        val sizeOfBox = 10F
+        for ( tile in snake.listOfTiles ) {
+            val posX = tile.x*sizeOfBox
+            val posY = tile.y*sizeOfBox
+
+            renderer.rect(posX, posY, sizeOfBox, sizeOfBox)
+        }
+    }
+
     private fun calculateXPos(): Float {
-        xPos += delta
+        xPos += deltaX
         return xPos
     }
 
+    private fun calculateYPos(): Float {
+        yPos += deltaY
+        return yPos
+    }
+
     override fun keyDown(keycode: Int): Boolean {
-        delta = if ( keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+        deltaX = if ( keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
             -1F
         } else if ( keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
             1F
         } else {
-            delta
+            0F
         }
+        deltaY = if ( keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+            -1F
+        } else if ( keycode == Input.Keys.W || keycode == Input.Keys.UP) {
+            1F
+        } else {
+            0F
+        }
+
 
         return true
     }

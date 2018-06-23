@@ -56,33 +56,33 @@
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx</artifactId>
-            <version>1.9.8</version>
+            <version>RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-lwjgl</artifactId>
-            <version>1.9.8</version>
+            <version>RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl3 -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-backend-lwjgl3</artifactId>
-            <version>1.9.8</version>
+            <version>RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-platform -->
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-platform</artifactId>
             <classifier>natives-desktop</classifier>
-            <version>1.9.8</version>
+            <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <!-- ktx-inject -->
         <dependency>
             <groupId>io.github.libktx</groupId>
             <artifactId>ktx-inject</artifactId>
-            <version>1.9.8-b3</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
@@ -98,7 +98,7 @@
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
             <artifactId>gdx-freetype-platform</artifactId>
-            <version>1.9.8</version>
+            <version>RELEASE</version>
         </dependency>
 
     </dependencies>
@@ -132,7 +132,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -142,11 +142,22 @@
                     </archive>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <configuration>
+                    <source>1.9</source>
+                    <target>1.9</target>
+                    <jdkToolchain>
+                        <version>9</version>
+                    </jdkToolchain>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.2-beta-5</version>
                 <executions>
                     <execution>
                         <id>make-assembly</id>
