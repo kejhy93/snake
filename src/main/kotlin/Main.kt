@@ -18,8 +18,13 @@ object MainKt {
     }
 
     private fun createApplication() {
-        var snake = Snake.createSnake(0, 0)
+        var snake = Snake.createSnake(10, 10)
         LwjglApplication(Runner(snake), defaultConfiguration)
+
+        while ( true ) {
+            Thread.sleep(100)
+            snake.move()
+        }
     }
 
     private val defaultConfiguration: LwjglApplicationConfiguration
@@ -39,11 +44,6 @@ class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
     lateinit var batch : SpriteBatch
     lateinit var camera : Camera
     lateinit var renderer : ShapeRenderer
-
-    var xPos : Float = 200F
-    var deltaX : Float = 0F
-    var yPos : Float = 200F
-    var deltaY : Float = 0F
 
     override fun create() {
         super.create()
@@ -72,7 +72,6 @@ class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
         renderer.run {
             projectionMatrix = camera.combined
             begin(ShapeRenderer.ShapeType.Filled)
-            color = Color.WHITE
             renderSnake(this)
             end()
         }
@@ -80,43 +79,33 @@ class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
     }
 
     private fun renderSnake(renderer : ShapeRenderer) {
-        renderer.rect(calculateXPos(), calculateYPos(), 10F, 10F)
         val sizeOfBox = 10F
         for ( tile in snake.listOfTiles ) {
             val posX = tile.x*sizeOfBox
             val posY = tile.y*sizeOfBox
 
+            renderer.color = Color.WHITE
             renderer.rect(posX, posY, sizeOfBox, sizeOfBox)
         }
-    }
 
-    private fun calculateXPos(): Float {
-        xPos += deltaX
-        return xPos
-    }
-
-    private fun calculateYPos(): Float {
-        yPos += deltaY
-        return yPos
+//        snake.move()
+        println("Snake=[${snake.x};${snake.y}]")
     }
 
     override fun keyDown(keycode: Int): Boolean {
-        deltaX = if ( keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
-            -1F
+        if ( keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
+            snake.turnLeft()
         } else if ( keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
-            1F
-        } else {
-            0F
-        }
-        deltaY = if ( keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
-            -1F
+            snake.turnRight()
+        } else if ( keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
+            snake.turnDown()
         } else if ( keycode == Input.Keys.W || keycode == Input.Keys.UP) {
-            1F
+            snake.turnUp()
+        } else if ( keycode == Input.Keys.SPACE ) {
+            snake.addTile()
         } else {
-            0F
+
         }
-
-
         return true
     }
 
