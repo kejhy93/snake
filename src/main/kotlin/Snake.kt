@@ -8,6 +8,9 @@ class Snake private constructor(val initX : Int, val initY : Int) {
     var y : Int = initY
         get() = listOfTiles.firstOrNull()?.y?:initY
 
+    var direction : Direction = Direction.LEFT
+        get() = listOfTiles.firstOrNull()?.direction?:Direction.LEFT
+
     var listOfTiles : MutableList<SnakeTile> = LinkedList()
 
     init {
@@ -49,22 +52,38 @@ class Snake private constructor(val initX : Int, val initY : Int) {
 
     private fun calculateNextTileX(x : Int, direction: Direction): Int {
         return when ( direction ) {
-            Direction.LEFT -> x-1
-            Direction.RIGHT -> x+1
+            Direction.LEFT -> x+1
+            Direction.RIGHT -> x-1
             else -> x
         }
     }
 
     fun turnLeft() {
-        listOfTiles.first().direction = Direction.LEFT
+        val currDirection = direction
+
+        if ( !Direction.isOpposite(currDirection, Direction.LEFT)) {
+            listOfTiles.first().direction = Direction.LEFT
+        }
     }
     fun turnRight() {
-        listOfTiles.first().direction = Direction.RIGHT
+        val currDirection = direction
+
+        if  ( !Direction.isOpposite(currDirection, Direction.RIGHT)) {
+            listOfTiles.first().direction = Direction.RIGHT
+        }
     }
     fun turnUp() {
-        listOfTiles.first().direction = Direction.UP
+        val currDirection = direction
+
+        if ( !Direction.isOpposite(currDirection, Direction.UP)) {
+            listOfTiles.first().direction = Direction.UP
+        }
     }
     fun turnDown() {
-        listOfTiles.first().direction = Direction.DOWN
+        val currDirection = direction
+
+        if ( !Direction.isOpposite(currDirection, Direction.DOWN)) {
+            listOfTiles.first().direction = Direction.DOWN
+        }
     }
 }
