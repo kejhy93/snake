@@ -11,6 +11,7 @@ import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
 import ktx.graphics.rect
 import ktx.graphics.use
+import java.util.*
 
 object MainKt {
     @JvmStatic fun main(args: Array<String>) {
@@ -18,12 +19,20 @@ object MainKt {
     }
 
     private fun createApplication() {
-        var snake = Snake.createSnake(10, 10)
-        LwjglApplication(Runner(snake), defaultConfiguration)
+        val snake = Snake.createSnake(10, 10)
+        val bait = Bait.createBait(20, 20)
+
+        LwjglApplication(Runner(snake, bait), defaultConfiguration)
 
         while ( true ) {
             Thread.sleep(100)
             snake.move()
+
+            if ( snake.x == bait.x && snake.y == bait.y) {
+                snake.addTile()
+                bait.setPosition(Random().nextInt(30)+10, Random().nextInt(30)+10)
+                println("Bait position=[${bait.x}:${bait.y}]")
+            }
         }
     }
 
@@ -38,7 +47,7 @@ object MainKt {
         }
 }
 
-class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
+class Runner(val snake : Snake, val bait : Bait) : KtxApplicationAdapter, KtxInputAdapter {
 
     lateinit var font : BitmapFont
     lateinit var batch : SpriteBatch
@@ -60,11 +69,6 @@ class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
         Gdx.input.inputProcessor = this
     }
 
-
-    override fun dispose() {
-        super.dispose()
-    }
-
     override fun render() {
         Gdx.gl.glClearColor(0F, 0F, 0F, 0F)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -73,9 +77,20 @@ class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
             projectionMatrix = camera.combined
             begin(ShapeRenderer.ShapeType.Filled)
             renderSnake(this)
+            renderBait(this)
             end()
         }
         super.render()
+    }
+
+    private fun renderBait(renderer: ShapeRenderer) {
+        val sizeOfBox = 10F
+        renderer.color = Color.RED
+
+        val posX = bait.x*sizeOfBox
+        val posY = bait.y*sizeOfBox
+
+        renderer.rect(posX, posY, sizeOfBox, sizeOfBox)
     }
 
     private fun renderSnake(renderer : ShapeRenderer) {
@@ -87,20 +102,25 @@ class Runner(val snake : Snake) : KtxApplicationAdapter, KtxInputAdapter {
             renderer.color = Color.WHITE
             renderer.rect(posX, posY, sizeOfBox, sizeOfBox)
         }
-
-//        snake.move()
-        println("Snake=[${snake.x};${snake.y}]")
     }
 
     override fun keyDown(keycode: Int): Boolean {
+        if ( !snake.canRotate ) {
+            return true
+        }
+
         if ( keycode == Input.Keys.A || keycode == Input.Keys.LEFT) {
             snake.turnLeft()
+            snake.canRotate = false
         } else if ( keycode == Input.Keys.D || keycode == Input.Keys.RIGHT) {
             snake.turnRight()
+            snake.canRotate = false
         } else if ( keycode == Input.Keys.S || keycode == Input.Keys.DOWN) {
             snake.turnDown()
+            snake.canRotate = false
         } else if ( keycode == Input.Keys.W || keycode == Input.Keys.UP) {
             snake.turnUp()
+            snake.canRotate = false
         } else if ( keycode == Input.Keys.SPACE ) {
             snake.addTile()
         } else {
