@@ -18,8 +18,8 @@ class SnakeTile private constructor (initX : Int, initY : Int, initDirection : D
         when (direction) {
             Direction.LEFT -> x--
             Direction.RIGHT -> x++
-            Direction.UP -> y--
-            Direction.DOWN -> y++
+            Direction.UP -> y++
+            Direction.DOWN -> y--
         }
 
         if ( !Direction.isOpposite(direction, newDirection)) {
