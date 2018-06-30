@@ -1,6 +1,6 @@
 import java.util.*
 
-class Snake private constructor(val initX: Int, val initY: Int) {
+class Snake private constructor(val initX: Int, val initY: Int, val initDirection: Direction) {
 
     var x: Int = initX
         get() = synchronized(listOfTiles) { listOfTiles.firstOrNull()?.x ?: initX }
@@ -8,24 +8,20 @@ class Snake private constructor(val initX: Int, val initY: Int) {
     var y: Int = initY
         get() = synchronized(listOfTiles) { listOfTiles.firstOrNull()?.y ?: initY }
 
-    var direction: Direction = Direction.LEFT
+    var direction: Direction = initDirection
         get() = synchronized(listOfTiles) { listOfTiles.firstOrNull()?.direction ?: Direction.LEFT }
 
     var listOfTiles: MutableList<SnakeTile> = LinkedList()
 
-    var canRotate : Boolean = true
+    var canRotate: Boolean = true
 
     init {
-        listOfTiles.add(SnakeTile.createTile(x, y, Direction.RIGHT))
-        addTile()
-        addTile()
-        addTile()
-        addTile()
+        listOfTiles.add(SnakeTile.createTile(x, y, initDirection))
     }
 
     companion object {
-        fun createSnake(x: Int, y: Int): Snake {
-            return Snake(x, y)
+        fun createSnake(x: Int, y: Int, direction: Direction = Direction.LEFT): Snake {
+            return Snake(x, y, direction)
         }
     }
 
