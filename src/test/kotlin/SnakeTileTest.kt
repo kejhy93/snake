@@ -71,7 +71,7 @@ class SnakeTileTest {
         val initDirection = Direction.UP
 
         val finalX = 5
-        val finalY = 4
+        val finalY = 6
         val finalDirection = Direction.UP
 
         val tile = SnakeTile.createTile(initX, initY, initDirection)
@@ -94,7 +94,7 @@ class SnakeTileTest {
         val initDirection = Direction.DOWN
 
         val finalX = 5
-        val finalY = 6
+        val finalY = 4
         val finalDirection = Direction.DOWN
 
         val tile = SnakeTile.createTile(initX, initY, initDirection)
@@ -121,7 +121,7 @@ class SnakeTileTest {
         val intermediateDirection = Direction.UP
 
         val finalX = 4
-        val finalY = 4
+        val finalY = 6
         val finalDirection = Direction.UP
 
         val tile = SnakeTile.createTile(initX, initY, initDirection)
