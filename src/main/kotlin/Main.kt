@@ -4,13 +4,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.graphics.*
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
-import ktx.graphics.rect
-import ktx.graphics.use
 import java.util.*
 
 object MainKt {
@@ -19,7 +16,7 @@ object MainKt {
     }
 
     private fun createApplication() {
-        val snake = Snake.createSnake(10, 10)
+        val snake = Snake.createSnake(10, 10, Direction.RIGHT)
         val bait = Bait.createBait(20, 20)
 
         LwjglApplication(Runner(snake, bait), defaultConfiguration)
@@ -32,6 +29,12 @@ object MainKt {
                 snake.addTile()
                 bait.setPosition(Random().nextInt(30)+10, Random().nextInt(30)+10)
                 println("Bait position=[${bait.x}:${bait.y}]")
+            }
+
+            if ( snake.checkCollision() ) {
+                println ("Collision detected")
+                println ("Game over")
+                return
             }
         }
     }
@@ -49,10 +52,10 @@ object MainKt {
 
 class Runner(val snake : Snake, val bait : Bait) : KtxApplicationAdapter, KtxInputAdapter {
 
-    lateinit var font : BitmapFont
-    lateinit var batch : SpriteBatch
-    lateinit var camera : Camera
-    lateinit var renderer : ShapeRenderer
+    private lateinit var font : BitmapFont
+    private lateinit var batch : SpriteBatch
+    private lateinit var camera : Camera
+    private lateinit var renderer : ShapeRenderer
 
     override fun create() {
         super.create()

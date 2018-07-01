@@ -71,4 +71,9 @@ class SnakeTest {
         assertEquals(initY, snake.y)
         assertEquals(directionDown, snake.direction)
     }
+
+    @Test
+    fun testCollisionDetection() {
+        
+    }
 }

@@ -38,6 +38,21 @@ class Snake private constructor(val initX: Int, val initY: Int, val initDirectio
         canRotate = true
     }
 
+    fun checkCollision() : Boolean {
+        val xOfHead = x
+        val yOfHead = y
+
+        for ( index in 1 until listOfTiles.size) {
+            val tile = listOfTiles[index]
+
+            if ( tile.x == xOfHead && tile.y == yOfHead ) {
+                return true
+            }
+        }
+
+        return false
+    }
+
     fun addTile() {
         val lastTile = listOfTiles.last()
         val direction = lastTile.direction
