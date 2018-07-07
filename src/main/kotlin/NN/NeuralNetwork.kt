@@ -29,19 +29,30 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
     fun calculateNextMove(input: List<Double>): Direction {
 
         var inputForLayer = input
-        var outputOfLayer = calculateLayer(1, inputForLayer)
+        var outputLayer : List<Double> = listOf(0.0,0.0,0.0,0.0)
 
+        for ( (index, _) in layers.withIndex() ) {
+            outputLayer = calculateLayer(index, inputForLayer)
+            inputForLayer = outputLayer
+        }
 
+        var indexWithHighestProb = 0
+        var highestProb = 0.0
 
-        return Direction.RIGHT
+        for ( (index,prob) in outputLayer.withIndex()) {
+            if ( highestProb < prob) {
+                highestProb = prob
+                indexWithHighestProb = index
+            }
+        }
+
+        return Direction.mapIndexToDirection(indexWithHighestProb)
     }
 
     fun calculateLayer(layer: Int, input: List<Double>): List<Double> {
         val list: MutableList<Double> = ArrayList()
 
-        for (index in 0 until layers[layer].size) {
-            list.add(index, layers[layer][index].calculateOutput(input))
-        }
+        for (index in 0 until layers[layer].size) list.add(index, layers[layer][index].calculateOutput(input))
 
         return list
     }
