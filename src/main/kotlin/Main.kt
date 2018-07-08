@@ -18,6 +18,8 @@ object MainKt {
         createApplication()
     }
 
+    private const val isBorderSolid: Boolean = false
+
     private fun createApplication() {
         val snake = Snake.createSnake(10, 10)
         val bait = Bait.createBait(20, 20)
@@ -37,9 +39,16 @@ object MainKt {
                 println("Bait position=[${bait.x}:${bait.y}]")
             }
 
-            if ( snake.x < 0 || snake.x > 80 || snake.y < 0 || snake.y > 60) {
-                println("Game Over")
-                snake.dead = true
+            if ( isBorderSolid ) {
+                if (snake.x < 0 || snake.x > 80 || snake.y < 0 || snake.y > 60) {
+                    println("Game Over")
+                    snake.dead = true
+                }
+            } else {
+                for ( tile in snake.listOfTiles) {
+                    tile.x = Math.floorMod ( tile.x, 80)
+                    tile.y = Math.floorMod ( tile.y, 60)
+                }
             }
         }
     }
