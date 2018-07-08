@@ -26,12 +26,20 @@ object MainKt {
 
         while ( true ) {
             Thread.sleep(100)
-            snake.move()
+            if ( snake.dead )
+                break
 
+            snake.move()
+            println("Snake position=[${snake.x};${snake.y}]")
             if ( snake.x == bait.x && snake.y == bait.y) {
                 snake.addTile()
                 bait.setPosition(Random().nextInt(30)+10, Random().nextInt(30)+10)
                 println("Bait position=[${bait.x}:${bait.y}]")
+            }
+
+            if ( snake.x < 0 || snake.x > 80 || snake.y < 0 || snake.y > 60) {
+                println("Game Over")
+                snake.dead = true
             }
         }
     }
@@ -63,7 +71,7 @@ class Runner(val snake : Snake, val bait : Bait) : KtxApplicationAdapter, KtxInp
 
         font.color = Color.WHITE
         camera = OrthographicCamera(800F,600F)
-        camera.position.set(400F, 400F, 0F)
+        camera.position.set(400F, 300F, 0F)
         camera.update()
 
         Gdx.input.inputProcessor = this

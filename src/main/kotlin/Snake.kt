@@ -15,6 +15,8 @@ class Snake private constructor(val initX: Int, val initY: Int, val initDirectio
 
     var canRotate: Boolean = true
 
+    var dead : Boolean = false
+
     init {
         listOfTiles.add(SnakeTile.createTile(x, y, initDirection))
     }
