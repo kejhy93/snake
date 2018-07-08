@@ -4,21 +4,21 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.graphics.*
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
-import ktx.graphics.rect
-import ktx.graphics.use
 import java.util.*
 
 object MainKt {
     @JvmStatic fun main(args: Array<String>) {
         createApplication()
+
+        // @TODO Move setting somewhere else, maybe parameter
+        isBorderSolid = true
     }
 
-    private const val isBorderSolid: Boolean = false
+    private var isBorderSolid: Boolean = false
 
     private fun createApplication() {
         val snake = Snake.createSnake(10, 10)
