@@ -1,8 +1,7 @@
 package NN
 
 import Direction
-import java.util.LinkedList
-import java.util.ArrayList
+import java.util.*
 
 class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: Int) {
 
@@ -19,8 +18,8 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
                 countOfInputInEachLayer.add(count)
             }
 
-            network.layers = List ( countOfLayers,
-                    { layer -> List(countOfNeuronsInEachLayer[layer], { Neuron(countOfInputInEachLayer[layer])})})
+            network.layers = List(countOfLayers,
+                    { layer -> List(countOfNeuronsInEachLayer[layer], { Neuron(countOfInputInEachLayer[layer]) }) })
 
             return network
         }
@@ -29,9 +28,9 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
     fun calculateNextMove(input: List<Double>): Direction {
 
         var inputForLayer = input
-        var outputLayer : List<Double> = listOf(0.0,0.0,0.0,0.0)
+        var outputLayer: List<Double> = listOf(0.0, 0.0, 0.0, 0.0)
 
-        for ( (index, _) in layers.withIndex() ) {
+        for ((index, _) in layers.withIndex()) {
             outputLayer = calculateLayer(index, inputForLayer)
             inputForLayer = outputLayer
         }
@@ -39,14 +38,21 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
         var indexWithHighestProb = 0
         var highestProb = 0.0
 
-        for ( (index,prob) in outputLayer.withIndex()) {
-            if ( highestProb < prob) {
+        for ((index, prob) in outputLayer.withIndex()) {
+            if (highestProb < prob) {
                 highestProb = prob
                 indexWithHighestProb = index
             }
         }
 
-        return Direction.mapIndexToDirection(indexWithHighestProb)
+        for ( (index,prob) in outputLayer.withIndex()) {
+            println("$index.th probability $prob")
+        }
+
+        val finalDirection = Direction.mapIndexToDirection(indexWithHighestProb)
+        println("Highest prob=$highestProb, Index=$indexWithHighestProb, finalDirection=$finalDirection")
+
+        return finalDirection
     }
 
     fun calculateLayer(layer: Int, input: List<Double>): List<Double> {
@@ -58,23 +64,18 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
     }
 }
 
-fun main(args: Array<String>) {
-    println("Neural Network - test")
+class Neuron(private val inputSize: Int) {
+    private var weights: Array<Double>
 
-    val inputSize = 3
-    val countOfLayers = 3
-    val countOfNeuronsInEachLayer = arrayOf(3,5,4)
-
-    val network = NeuralNetwork.createNetwork(inputSize, countOfLayers, countOfNeuronsInEachLayer)
-}
-
-class Neuron(val inputSize: Int) {
-    var weights: List<Double> = ArrayList(inputSize)
+    init {
+        val random = Random()
+        weights = Array(inputSize, { random.nextDouble() })
+    }
 
     fun calculateOutput(input: List<Double>): Double {
 
         if (input.size != inputSize) {
-            println("Size of input set and weight set does not match")
+            println("Size of input set and weight set does not match, expected=${inputSize},actual=${input.size}")
             return 0.0
         }
 
@@ -83,6 +84,6 @@ class Neuron(val inputSize: Int) {
             res += weights[index] * input[index]
         }
 
-        return res
+        return Math.tanh(res)
     }
 }

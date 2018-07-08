@@ -13,15 +13,14 @@ enum class Direction(index: Int) {
                     UNKNOWN -> UNKNOWN
                 }
 
-        fun mapIndexToDirection(index: Int): Direction {
-            when (index) {
-                0 -> LEFT
-                1 -> RIGHT
-                2 -> UP
-                3 -> DOWN
-                else -> throw IllegalArgumentException("Unknown direction")
-            }
-            return UNKNOWN
-        }
+        fun mapIndexToDirection(index: Int): Direction =
+                when (index) {
+                    0 -> LEFT
+                    1 -> RIGHT
+                    2 -> UP
+                    3 -> DOWN
+                    else -> UNKNOWN
+                }
+
     }
 }

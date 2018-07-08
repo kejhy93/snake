@@ -24,7 +24,7 @@ class SnakeTest {
         val finalY = 5
         val finalDirection = Direction.RIGHT
 
-        var snake = Snake.createSnake(initX, initY, initDirection)
+        var snake = Snake.createSnake(initX, initY, 0,initDirection)
 
         assertEquals(initX, snake.x)
         assertEquals(initY, snake.y)
@@ -44,7 +44,7 @@ class SnakeTest {
         val initY = 5
         val initDirection = Direction.LEFT
 
-        var snake = Snake.createSnake(initX, initY, initDirection)
+        var snake = Snake.createSnake(initX, initY, 0,initDirection)
 
         assertEquals(initX, snake.x)
         assertEquals(initY, snake.y)

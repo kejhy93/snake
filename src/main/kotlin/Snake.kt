@@ -1,6 +1,6 @@
 import java.util.*
 
-class Snake private constructor(val initX: Int, val initY: Int, val initDirection: Direction) {
+class Snake private constructor(val initX: Int, val initY: Int, val id : Int, val initDirection: Direction) {
 
     var x: Int = initX
         get() = synchronized(listOfTiles) { listOfTiles.firstOrNull()?.x ?: initX }
@@ -15,13 +15,15 @@ class Snake private constructor(val initX: Int, val initY: Int, val initDirectio
 
     var canRotate: Boolean = true
 
+    var score = 0
+
     init {
         listOfTiles.add(SnakeTile.createTile(x, y, initDirection))
     }
 
     companion object {
-        fun createSnake(x: Int, y: Int, direction: Direction = Direction.LEFT): Snake {
-            return Snake(x, y, direction)
+        fun createSnake(x: Int, y: Int, id : Int = 0, direction: Direction = Direction.LEFT): Snake {
+            return Snake(x, y, id, direction)
         }
     }
 
@@ -95,5 +97,18 @@ class Snake private constructor(val initX: Int, val initY: Int, val initDirectio
         if (!Direction.isOpposite(currDirection, Direction.DOWN)) {
             listOfTiles.first().direction = Direction.DOWN
         }
+    }
+
+    fun turn(direction: Direction) {
+        when ( direction ) {
+            Direction.LEFT -> turnLeft()
+            Direction.RIGHT -> turnRight()
+            Direction.UP -> turnUp()
+            Direction.DOWN -> turnDown()
+        }
+    }
+
+    fun incrementScore() {
+        score+=1
     }
 }
