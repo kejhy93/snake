@@ -39,16 +39,20 @@ object MainKt {
                 println("Bait position=[${bait.x}:${bait.y}]")
             }
 
-            if ( isBorderSolid ) {
-                if (snake.x < 0 || snake.x > 80 || snake.y < 0 || snake.y > 60) {
-                    println("Game Over")
-                    snake.dead = true
-                }
-            } else {
-                for ( tile in snake.listOfTiles) {
-                    tile.x = Math.floorMod ( tile.x, 80)
-                    tile.y = Math.floorMod ( tile.y, 60)
-                }
+            borderManipulation(snake)
+        }
+    }
+
+    private fun borderManipulation(snake: Snake) {
+        if (isBorderSolid) {
+            if (snake.x < 0 || snake.x > 80 || snake.y < 0 || snake.y > 60) {
+                println("Game Over")
+                snake.dead = true
+            }
+        } else {
+            for (tile in snake.listOfTiles) {
+                tile.x = Math.floorMod(tile.x, 80)
+                tile.y = Math.floorMod(tile.y, 60)
             }
         }
     }
