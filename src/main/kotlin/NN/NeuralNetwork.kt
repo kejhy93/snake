@@ -5,7 +5,7 @@ import java.util.*
 
 class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: Int) {
 
-    var layers: List<List<Neuron>> = ArrayList()
+    lateinit var layers: Array<Array<Neuron>>
 
     companion object {
         fun createNetwork(inputSize: Int, countOfLayers: Int, countOfNeuronsInEachLayer: Array<Int>): NeuralNetwork {
@@ -18,8 +18,8 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
                 countOfInputInEachLayer.add(count)
             }
 
-            network.layers = List(countOfLayers,
-                    { layer -> List(countOfNeuronsInEachLayer[layer], { Neuron(countOfInputInEachLayer[layer]) }) })
+            network.layers = Array(countOfLayers,
+                    { layer -> Array(countOfNeuronsInEachLayer[layer], { Neuron(countOfInputInEachLayer[layer]) }) })
 
             return network
         }
@@ -62,10 +62,21 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
 
         return list
     }
+
+    fun clone(): NeuralNetwork {
+        val array : Array<Int> = Array(layers.size, {_ -> 0})
+        for ( (index, layer) in layers.withIndex()) {
+            array[index] = layer.size
+        }
+        val network = NeuralNetwork.createNetwork(inputSize, countOfLayers, array)
+
+        return network
+    }
 }
 
 class Neuron(private val inputSize: Int) {
-    private var weights: Array<Double>
+    var weights: Array<Double>
+        private set
 
     init {
         val random = Random()
