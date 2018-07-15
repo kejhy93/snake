@@ -23,11 +23,21 @@ class NeuralNetworkCombiner {
             val firstCrossOveredNetwork = first.clone()
             val secondCrossOveredNetwork = second.clone()
 
-            for ( (index,layer) in first.layers.withIndex()) {
-                
+            val random = Random()
+
+            for ( (indexLayer,layer) in first.layers.withIndex()) {
+                for ( (indexNeuron,neuron) in layer.withIndex()) {
+                    for ( (indexWeight,weight) in neuron.weights.withIndex()) {
+                        if ( prob > random.nextDouble() ) {
+                            val tmp = firstCrossOveredNetwork.layers[indexLayer][indexNeuron].weights[indexWeight]
+                            firstCrossOveredNetwork.layers[indexLayer][indexNeuron].weights[indexWeight] = secondCrossOveredNetwork.layers[indexLayer][indexNeuron].weights[indexWeight]
+                            secondCrossOveredNetwork.layers[indexLayer][indexNeuron].weights[indexWeight] = tmp
+                        }
+                    }
+                }
             }
 
-            return listOf()
+            return listOf(firstCrossOveredNetwork, secondCrossOveredNetwork)
         }
     }
 }

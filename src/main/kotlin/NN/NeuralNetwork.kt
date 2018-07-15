@@ -70,6 +70,14 @@ class NeuralNetwork private constructor(val inputSize: Int, val countOfLayers: I
         }
         val network = NeuralNetwork.createNetwork(inputSize, countOfLayers, array)
 
+        for ( (indexLayer,layer) in layers.withIndex()) {
+            for ( (indexNeuron,neuron) in layer.withIndex() ) {
+                for ( (indexWeight,weight) in neuron.weights.withIndex()) {
+                    network.layers[indexLayer][indexNeuron].weights[indexWeight] = weight
+                }
+            }
+        }
+
         return network
     }
 }
