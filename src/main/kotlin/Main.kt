@@ -4,19 +4,29 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
 import com.badlogic.gdx.graphics.*
 import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
-import ktx.graphics.rect
-import ktx.graphics.use
 import java.util.*
 
 object MainKt {
     @JvmStatic fun main(args: Array<String>) {
+        isBorderSolid = true
+
         createApplication()
     }
+
+    private var isBorderSolid: Boolean = false
+
+    var widthOfMap = 800F
+    var heightOfMap = 600F
+
+    var widthOfTile = 10F
+    var heightOfTile = 10F
+
+    var numberOfTilesWidth : Int = (widthOfMap/widthOfTile).toInt()
+    var numberOfTilesHeight : Int = (heightOfMap/heightOfTile).toInt()
 
     private fun createApplication() {
         val snake = Snake.createSnake(10, 10)
@@ -26,12 +36,31 @@ object MainKt {
 
         while ( true ) {
             Thread.sleep(100)
-            snake.move()
+            if ( snake.dead )
+                break
 
+            snake.move()
+            println("Snake position=[${snake.x};${snake.y}]")
             if ( snake.x == bait.x && snake.y == bait.y) {
                 snake.addTile()
                 bait.setPosition(Random().nextInt(30)+10, Random().nextInt(30)+10)
                 println("Bait position=[${bait.x}:${bait.y}]")
+            }
+
+            borderManipulation(snake)
+        }
+    }
+
+    private fun borderManipulation(snake: Snake) {
+        if (isBorderSolid) {
+            if (snake.x < 0 || snake.x > numberOfTilesWidth || snake.y < 0 || snake.y > numberOfTilesHeight) {
+                println("Game Over")
+                snake.dead = true
+            }
+        } else {
+            for (tile in snake.listOfTiles) {
+                tile.x = Math.floorMod(tile.x, numberOfTilesWidth)
+                tile.y = Math.floorMod(tile.y, numberOfTilesWidth)
             }
         }
     }
@@ -40,8 +69,8 @@ object MainKt {
         get() {
             val configuration = LwjglApplicationConfiguration()
             configuration.title = "Test"
-            configuration.width = 800
-            configuration.height = 600
+            configuration.width = widthOfMap.toInt()
+            configuration.height = heightOfMap.toInt()
 
             return configuration
         }
@@ -62,8 +91,8 @@ class Runner(val snake : Snake, val bait : Bait) : KtxApplicationAdapter, KtxInp
         renderer = ShapeRenderer()
 
         font.color = Color.WHITE
-        camera = OrthographicCamera(800F,600F)
-        camera.position.set(400F, 400F, 0F)
+        camera = OrthographicCamera(MainKt.widthOfMap,MainKt.heightOfMap)
+        camera.position.set(MainKt.widthOfMap/2, MainKt.heightOfMap/2, 0F)
         camera.update()
 
         Gdx.input.inputProcessor = this
