@@ -12,13 +12,21 @@ import java.util.*
 
 object MainKt {
     @JvmStatic fun main(args: Array<String>) {
-        createApplication()
-
-        // @TODO Move setting somewhere else, maybe parameter
         isBorderSolid = true
+
+        createApplication()
     }
 
     private var isBorderSolid: Boolean = false
+
+    var widthOfMap = 800F
+    var heightOfMap = 600F
+
+    var widthOfTile = 10F
+    var heightOfTile = 10F
+
+    var numberOfTilesWidth : Int = (widthOfMap/widthOfTile).toInt()
+    var numberOfTilesHeight : Int = (heightOfMap/heightOfTile).toInt()
 
     private fun createApplication() {
         val snake = Snake.createSnake(10, 10)
@@ -45,14 +53,14 @@ object MainKt {
 
     private fun borderManipulation(snake: Snake) {
         if (isBorderSolid) {
-            if (snake.x < 0 || snake.x > 80 || snake.y < 0 || snake.y > 60) {
+            if (snake.x < 0 || snake.x > numberOfTilesWidth || snake.y < 0 || snake.y > numberOfTilesHeight) {
                 println("Game Over")
                 snake.dead = true
             }
         } else {
             for (tile in snake.listOfTiles) {
-                tile.x = Math.floorMod(tile.x, 80)
-                tile.y = Math.floorMod(tile.y, 60)
+                tile.x = Math.floorMod(tile.x, numberOfTilesWidth)
+                tile.y = Math.floorMod(tile.y, numberOfTilesWidth)
             }
         }
     }
@@ -61,8 +69,8 @@ object MainKt {
         get() {
             val configuration = LwjglApplicationConfiguration()
             configuration.title = "Test"
-            configuration.width = 800
-            configuration.height = 600
+            configuration.width = widthOfMap.toInt()
+            configuration.height = heightOfMap.toInt()
 
             return configuration
         }
@@ -83,8 +91,8 @@ class Runner(val snake : Snake, val bait : Bait) : KtxApplicationAdapter, KtxInp
         renderer = ShapeRenderer()
 
         font.color = Color.WHITE
-        camera = OrthographicCamera(800F,600F)
-        camera.position.set(400F, 300F, 0F)
+        camera = OrthographicCamera(MainKt.widthOfMap,MainKt.heightOfMap)
+        camera.position.set(MainKt.widthOfMap/2, MainKt.heightOfMap/2, 0F)
         camera.update()
 
         Gdx.input.inputProcessor = this
