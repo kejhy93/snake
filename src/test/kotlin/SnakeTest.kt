@@ -71,4 +71,56 @@ class SnakeTest {
         assertEquals(initY, snake.y)
         assertEquals(directionDown, snake.direction)
     }
+
+    @Test
+    fun testCollisionDetection() {
+        val initialX = 5
+        val initialY = 5
+        val initialDirection = Direction.LEFT
+
+        val snake = Snake.createSnake(initialX, initialY, initialDirection)
+        snake.addTile()
+        snake.addTile()
+        snake.addTile()
+        snake.addTile()
+
+        snake.turnUp()
+        snake.move()
+        assertEquals(false, snake.checkCollision())
+
+        val turnUpAndMoveX = initialX
+        val turnUpAndMoveY = initialY + 1
+        val turnUpAndMoveDirection = Direction.UP
+
+        assertEquals(turnUpAndMoveX, snake.x)
+        assertEquals(turnUpAndMoveY, snake.y)
+        assertEquals(turnUpAndMoveDirection, snake.direction)
+
+        snake.turnRight()
+        snake.move()
+        assertEquals(false, snake.checkCollision())
+
+        val turnRightAndMoveX = turnUpAndMoveX+1
+        val turnRightAndMoveY = turnUpAndMoveY
+        val turnRightAndMoveDirection = Direction.RIGHT
+
+        assertEquals(turnRightAndMoveX, snake.x)
+        assertEquals(turnRightAndMoveY, snake.y)
+        assertEquals(turnRightAndMoveDirection, snake.direction)
+
+        assertEquals(false, snake.checkCollision())
+
+        snake.turnDown()
+        snake.move()
+
+        val turnDownAndMoveX = turnRightAndMoveX
+        val turnDownAndMoveY = turnRightAndMoveY-1
+        val turnDownAndMoveDirection = Direction.DOWN
+
+        assertEquals(turnDownAndMoveX, snake.x)
+        assertEquals(turnDownAndMoveY, snake.y)
+        assertEquals(turnDownAndMoveDirection, snake.direction)
+
+        assertEquals(true, snake.checkCollision())
+    }
 }
