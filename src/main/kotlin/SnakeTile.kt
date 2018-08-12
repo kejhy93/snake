@@ -11,9 +11,6 @@ class SnakeTile private constructor (initX : Int, initY : Int, initDirection : D
         }
     }
 
-    /**
-     * Move tile
-     */
     fun move( newDirection : Direction ) {
         when (direction) {
             Direction.LEFT -> x--

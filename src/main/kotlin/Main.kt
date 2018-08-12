@@ -29,7 +29,7 @@ object MainKt {
     var numberOfTilesHeight : Int = (heightOfMap/heightOfTile).toInt()
 
     private fun createApplication() {
-        val snake = Snake.createSnake(10, 10)
+        val snake = Snake.createSnake(10, 10, Direction.RIGHT)
         val bait = Bait.createBait(20, 20)
 
         LwjglApplication(Runner(snake, bait), defaultConfiguration)
@@ -47,6 +47,11 @@ object MainKt {
                 println("Bait position=[${bait.x}:${bait.y}]")
             }
 
+            if ( snake.checkCollision() ) {
+                println("Collision detected")
+                println("Game over")
+                return
+            }
             borderManipulation(snake)
         }
     }
@@ -78,10 +83,10 @@ object MainKt {
 
 class Runner(val snake : Snake, val bait : Bait) : KtxApplicationAdapter, KtxInputAdapter {
 
-    lateinit var font : BitmapFont
-    lateinit var batch : SpriteBatch
-    lateinit var camera : Camera
-    lateinit var renderer : ShapeRenderer
+    private lateinit var font : BitmapFont
+    private lateinit var batch : SpriteBatch
+    private lateinit var camera : Camera
+    private lateinit var renderer : ShapeRenderer
 
     override fun create() {
         super.create()
