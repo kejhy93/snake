@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="SnakeTileTest" time="0.017" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="SnakeTileTest" time="0.005" errors="0" skipped="0">
   <properties>
     <property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/lib64:/usr/lib:/lib:/usr/lib/x86_64-linux-gnu/mesa:/usr/lib/x86_64-linux-gnu/mesa-egl"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -30,7 +30,7 @@
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/usr/local/maven-3.5.2/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna2167830309695365719.tmp"/>
+    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna6781199945365219537.tmp"/>
     <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="maven.conf" value="/usr/local/maven-3.5.2/conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -65,11 +65,11 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalHorizontal" time="0.012"/>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalAndOppositeVertical" time="0"/>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveRight" time="0"/>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveUp" time="0.005"/>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveDown" time="0"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalAndOppositeVertical" time="0.004"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileCreation" time="0"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveRight" time="0"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveUp" time="0.001"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveDown" time="0"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalHorizontal" time="0"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveLeft" time="0"/>
 </testsuite>
