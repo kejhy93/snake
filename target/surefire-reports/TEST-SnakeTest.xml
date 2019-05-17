@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="SnakeTest" time="0.022" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="SnakeTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/lib64:/usr/lib:/lib:/usr/lib/x86_64-linux-gnu/mesa:/usr/lib/x86_64-linux-gnu/mesa-egl"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -30,7 +30,7 @@
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/usr/local/maven-3.5.2/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna2247074605375679071.tmp"/>
+    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna7170859340902488636.tmp"/>
     <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="maven.conf" value="/usr/local/maven-3.5.2/conf"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -65,8 +65,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="SnakeTest" name="SnakeTest.testMove" time="0.012"/>
-  <testcase classname="SnakeTest" name="SnakeTest.testRotation" time="0"/>
-  <testcase classname="SnakeTest" name="SnakeTest.testCollisionDetection" time="0.01"/>
   <testcase classname="SnakeTest" name="SnakeTest.testCreation" time="0"/>
+  <testcase classname="SnakeTest" name="SnakeTest.testMove" time="0"/>
+  <testcase classname="SnakeTest" name="SnakeTest.testRotation" time="0"/>
+  <testcase classname="SnakeTest" name="SnakeTest.testCollisionDetection" time="0.001"/>
 </testsuite>
