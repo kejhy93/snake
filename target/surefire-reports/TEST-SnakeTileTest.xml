@@ -29,7 +29,7 @@
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/usr/local/maven-3.6.3/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna8098364052767694868.tmp"/>
+    <property name="jnidispatch.path" value="/tmp/jna--865697891/jna17952678020814530997.tmp"/>
     <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
     <property name="maven.conf" value="/usr/local/maven-3.6.3/conf"/>
     <property name="jdk.debug" value="release"/>
@@ -65,11 +65,11 @@
     <property name="java.vendor.version" value="18.9"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalAndOppositeVertical" time="0"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveLeft" time="0"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveRight" time="0"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveUp" time="0"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveDown" time="0"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalHorizontal" time="0"/>
+  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveVerticalAndOppositeVertical" time="0"/>
   <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileCreation" time="0"/>
-  <testcase classname="SnakeTileTest" name="SnakeTileTest.testTileMoveLeft" time="0"/>
 </testsuite>
