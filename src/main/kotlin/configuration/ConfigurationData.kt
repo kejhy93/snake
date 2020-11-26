@@ -1,5 +1,6 @@
 package configuration
 
 data class ConfigurationData(
-        var snake: Int
+        val snakes: Int,
+        val isBorderSolid: Boolean
 )
